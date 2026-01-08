@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Adventuwrist — Coming Soon</title>
+  <meta name="description" content="Adventuwrist — a global watch brand discovery platform. Coming soon." />
+  <style>
+    :root{
+      --bg:#07080b;
+      --fg:#f3f4f6;
+      --muted:#9ca3af;
+      --ring:rgba(255,255,255,.18);
+      --ring2:rgba(255,255,255,.08);
+      --glass:rgba(255,255,255,.04);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100svh;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(1200px 800px at 50% 20%, rgba(255,255,255,.06), transparent 60%),
+        radial-gradient(900px 600px at 20% 80%, rgba(255,255,255,.04), transparent 55%),
+        var(--bg);
+      color:var(--fg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      letter-spacing:.2px;
+    }
+    .wrap{
+      width:min(920px, 92vw);
+      display:grid;
+      gap:28px;
+      grid-template-columns: 1fr;
+      align-items:center;
+      justify-items:center;
+      padding:38px 18px;
+    }
+    @media (min-width: 860px){
+      .wrap{ grid-template-columns: 420px 1fr; justify-items:start; }
+    }
+
+    /* Watch */
+    .watch{
+      width:320px;
+      height:320px;
+      border-radius:50%;
+      position:relative;
+      background: radial-gradient(circle at 50% 40%, rgba(255,255,255,.06), rgba(255,255,255,.02) 55%, rgba(0,0,0,.35) 100%);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.55),
+        inset 0 0 0 2px var(--ring2),
+        inset 0 0 0 10px rgba(255,255,255,.02);
+      overflow:hidden;
+    }
+    .bezel{
+      position:absolute; inset:0;
+      border-radius:50%;
+      box-shadow: inset 0 0 0 14px var(--ring);
+    }
+    .glass{
+      position:absolute; inset:18px;
+      border-radius:50%;
+      background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+    }
+    .dial{
+      position:absolute; inset:32px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 50% 55%, rgba(255,255,255,.05), transparent 55%),
+        radial-gradient(circle at 50% 50%, rgba(0,0,0,.3), rgba(0,0,0,.8));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
+    }
+    .ticks{
+      position:absolute; inset:0;
+      border-radius:50%;
+      background:
+        repeating-conic-gradient(
+          from -90deg,
+          rgba(255,255,255,.55) 0deg 1deg,
+          transparent 1deg 6deg
+        );
+      mask: radial-gradient(circle, transparent 0 59%, #000 60% 100%);
+      opacity:.55;
+    }
+    .ticks.minor{
+      background:
+        repeating-conic-gradient(
+          from -90deg,
+          rgba(255,255,255,.25) 0deg .5deg,
+          transparent .5deg 3deg
+        );
+      mask: radial-gradient(circle, transparent 0 62%, #000 63% 100%);
+      opacity:.35;
+    }
+    .center{
+      position:absolute; left:50%; top:50%;
+      width:12px; height:12px;
+      transform:translate(-50%,-50%);
+      border-radius:50%;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 0 0 4px rgba(255,255,255,.08), 0 0 22px rgba(255,255,255,.22);
+      z-index:10;
+    }
+
+    .hand{
+      position:absolute;
+      left:50%; top:50%;
+      transform-origin: 50% 100%;
+      transform: translate(-50%,-100%) rotate(0deg);
+      border-radius: 999px;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.55));
+      z-index:8;
+    }
+    .hand.hour{
+      width:10px; height:78px;
+      background: rgba(255,255,255,.85);
+      opacity:.95;
+    }
+    .hand.minute{
+      width:6px; height:110px;
+      background: rgba(255,255,255,.75);
+      opacity:.95;
+    }
+    .hand.second{
+      width:2px; height:122px;
+      background: rgba(255,255,255,.55);
+      opacity:.9;
+    }
+
+    /* Text */
+    .copy{
+      max-width: 520px;
+      text-align:center;
+    }
+    @media (min-width: 860px){
+      .copy{ text-align:left; }
+    }
+    h1{
+      margin:0 0 10px 0;
+      font-size: clamp(34px, 4.2vw, 56px);
+      line-height: 1.03;
+      letter-spacing: .6px;
+    }
+    .tag{
+      margin: 10px 0 18px;
+      font-size: 15px;
+      color: var(--muted);
+      line-height:1.6;
+    }
+    .pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:10px 14px;
+      border-radius: 999px;
+      background: var(--glass);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
+      font-size: 14px;
+      color: rgba(255,255,255,.78);
+    }
+    .dot{
+      width:8px; height:8px;
+      border-radius:50%;
+      background: rgba(255,255,255,.7);
+      box-shadow: 0 0 14px rgba(255,255,255,.35);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{ transform:scale(1); opacity:.7 }
+      50%{ transform:scale(1.35); opacity:1 }
+    }
+    .small{
+      margin-top:18px;
+      font-size: 12px;
+      color: rgba(255,255,255,.55);
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="watch" aria-label="Analog watch showing current time">
+      <div class="bezel"></div>
+      <div class="glass"></div>
+      <div class="dial"></div>
+      <div class="ticks minor"></div>
+      <div class="ticks"></div>
+
+      <div class="hand hour" id="h"></div>
+      <div class="hand minute" id="m"></div>
+      <div class="hand second" id="s"></div>
+      <div class="center"></div>
+    </section>
+
+    <section class="copy">
+      <h1>Adventuwrist</h1>
+      <div class="tag">A global watch brand discovery platform.</div>
+      <div class="pill"><span class="dot"></span> Coming soon</div>
+      <div class="small">© <span id="year"></span> Adventuwrist</div>
+    </section>
+  </main>
+
+  <script>
+    const h = document.getElementById('h');
+    const m = document.getElementById('m');
+    const s = document.getElementById('s');
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function setHands(){
+      const now = new Date();
+      const ms = now.getMilliseconds();
+      const sec = now.getSeconds() + ms/1000;
+      const min = now.getMinutes() + sec/60;
+      const hr  = (now.getHours() % 12) + min/60;
+
+      const secDeg = sec * 6;          // 360/60
+      const minDeg = min * 6;
+      const hrDeg  = hr  * 30;         // 360/12
+
+      // Translate keeps base position; rotate sets angle from 12 o'clock
+      h.style.transform = `translate(-50%,-100%) rotate(${hrDeg}deg)`;
+      m.style.transform = `translate(-50%,-100%) rotate(${minDeg}deg)`;
+      s.style.transform = `translate(-50%,-100%) rotate(${secDeg}deg)`;
+
+      requestAnimationFrame(setHands);
+    }
+    requestAnimationFrame(setHands);
+  </script>
+</body>
+</html>
